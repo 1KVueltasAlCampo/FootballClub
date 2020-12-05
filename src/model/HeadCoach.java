@@ -99,6 +99,12 @@ public class HeadCoach extends Coach implements PriceAndLevel{
 	public String getLevel(){
 		return coachLevel;
 	}
+	/**
+	Returns all the information of the head coach <br>
+	<b> pre: </b> <br>
+	<b> post: </b> Based on all the information of the head coach, a String with all the information is obtained <br>
+	@return info
+	*/
 	@Override
 	public String getAllInformation(){
 		String info = getBasicInformation();
