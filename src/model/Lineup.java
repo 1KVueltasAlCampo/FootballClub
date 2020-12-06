@@ -72,7 +72,6 @@ public class Lineup {
 	Converts a String with the formation to an array of integers in order to facilitate the following operations<br>
 	<b> pre: </b> <br>
 	<b> post: </b> Returns an array of integers with the formation of the players <br>
-	@param formation String that indicates the formation. Must be an String with numbers separated by "-". The minimum is 3, the maximum is 6
 	@return playersPerRow
 	*/
 	public int[] getPlayersPerRow(){
@@ -87,8 +86,7 @@ public class Lineup {
 	/**
 	Creates the formation matrix<br>
 	<b> pre: </b> <br>
-	<b> post: </b> The class now has a formation matrix based on the information the user gave <br>
-	@param formation String that indicates the formation. Must be an String with numbers separated by "-". The minimum is 3, the maximum is 6
+	<b> post: </b> The class now has a formation matrix based on the information the user gave <br>.30100
 	*/
 	public void createFormationMatrix(){
 		int[] formationIndicator = getPlayersPerRow();
@@ -248,8 +246,8 @@ public class Lineup {
 		info += "**************  Lineup **************"+"\n";
 		info += "Date: "+getLineupDate()+"\n";
 		info += "Tactic: "+getLineupTactic()+"\n";
-		info += "Formation: "+getFormationString()+"\n";
-		info += getFormationMatrix();
+		info += "Formation: "+getFormationString()+"\n"+"\n";
+		info += getFormationMatrix()+"\n";
 		info += "Strikers: "+getStrikers()+" Midfielders: "+getMidfielders()+" Defenders "+getDefenders()+"\n";
 		info += "*************************************"+"\n";
 		return info;

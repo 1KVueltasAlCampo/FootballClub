@@ -42,7 +42,7 @@ public class Club{
 		return clubName;
 	}
 	/**
-	@param clubName String that indicates the NIT of the club
+	@param clubNIT String that indicates the NIT of the club
 	*/
 	public void setClubNIT(String clubNIT){
 		this.clubNIT=clubNIT;
@@ -54,7 +54,7 @@ public class Club{
 		return clubNIT;
 	}
 	/**
-	@param clubName String that indicates the fundation date of the club
+	@param clubFundationDate String that indicates the fundation date of the club
 	*/
 	public void setClubFundationDate(String clubFundationDate){
 		this.clubFundationDate=clubFundationDate;
@@ -69,13 +69,13 @@ public class Club{
 	Hires a player <br>
 	<b> pre: </b>  <br>
 	<b> post: </b> A player is hired <br>
-	@param name String that indicates the name of the player
-	@param identifier String that indicates the identifier of the player
-	@param salary int that indicates the salary of the player
-	@param tShirtNumber int that indicates the t-shirt number of the player
-	@param goalsScored int that indicates the goals scored by the player
-	@param averageRating double that indicates the average rating of the player. Must be a number from 1 to 5.
-	@param positionIndicator int that indicates the position of the player. 1 for GoalKeeper, 2 for Defender,3 for midfielder, 4 for striker.
+	@param employeeName String that indicates the name of the player
+	@param employeeID String that indicates the identifier of the player
+	@param employeeSalary int that indicates the salary of the player
+	@param playerTShirtNumber int that indicates the t-shirt number of the player
+	@param playerGoalsScored int that indicates the goals scored by the player
+	@param playerAverageRating double that indicates the average rating of the player. Must be a number from 1 to 5.
+	@param playerPositionIndicator int that indicates the position of the player. 1 for GoalKeeper, 2 for Defender,3 for midfielder, 4 for striker.
 	*/
 	public void hireAnEmployee(String employeeName,String employeeID,int employeeSalary,int playerTShirtNumber,int playerGoalsScored,double playerAverageRating, int playerPositionIndicator){
 		Player footballPlayer = new Player(employeeName,employeeID,employeeSalary,playerTShirtNumber,playerGoalsScored,playerAverageRating,playerPositionIndicator);
@@ -86,9 +86,9 @@ public class Club{
 	Hires a head coach <br>
 	<b> pre: </b>  <br>
 	<b> post: </b> A head coach is hired <br>
-	@param name String that indicates the name of the player
-	@param identifier String that indicates the identifier of the player
-	@param salary int that indicates the salary of the player
+	@param employeeName String that indicates the name of the player
+	@param employeeID String that indicates the identifier of the player
+	@param employeeSalary int that indicates the salary of the player
 	@param experienceYears int that indicates the years of experience of the head coach
 	@param teamsInCharge int that indicates the number of teams the head coach has in charge
 	@param championshipsAchieved int that indicates the number of championships achieved by the head coach
@@ -102,9 +102,9 @@ public class Club{
 	Hires an assistant coach <br>
 	<b> pre: </b>  <br>
 	<b> post: </b> An assistant coach is hired <br>
-	@param name String that indicates the name of the player
-	@param identifier String that indicates the identifier of the player
-	@param salary int that indicates the salary of the player
+	@param employeeName String that indicates the name of the player
+	@param employeeID String that indicates the identifier of the player
+	@param employeeSalary int that indicates the salary of the player
 	@param experienceYears int that indicates the years of experience of the head coach
 	@param wasAPlayer boolean that indicates if the coach was a proffesional player or not
 	@param expertiseIndicator int that indicates the expertise of the coach. 1 for offensive, 2 for deffensive, 3 for possesion, 4 for lab plays
@@ -118,8 +118,7 @@ public class Club{
 	Finds an employee int the club <br>
 	<b> pre: </b>It is only useful if there is at least one employee in the club. <br>
 	<b> post: </b> Returns an int, if it is "-1" then the employee doesn't exist. If is another number, indicates the position in which the employee is <br>
-	@param name String that indicates the name of the user
-	@param password String that indicates the password of the user
+	@param employeeName String that indicates the name of the employee
 	@return index
 	*/
 	public int findEmployee(String employeeName){
@@ -138,6 +137,7 @@ public class Club{
 	<b> pre: </b>Don't fire an employee that is already fired <br>
 	<b> post: </b> fires an employee<br>
 	@param index int that indicates what employee do you want to fire.
+	@return true or false
 	*/
 	public boolean fireAnEmployee(int index){
 		if(index!=-1){
@@ -167,6 +167,7 @@ public class Club{
 	Add a player to the team <br>
 	<b> pre: </b> <br>
 	<b> post: </b>Returns true if the player was added correctly, false if  it doesn't <br>
+	@param teamName String that indicates the name of the team
 	@param playerName String that indicates the name of the player	
 	@return true or false
 	*/
@@ -184,7 +185,7 @@ public class Club{
 						if(aux){
 							info+="The player was added to the team"+"\n";
 						}
-						else{
+						else{	
 						info+="Could not add the player, full storage"+"\n";
 						}
 					}
@@ -205,7 +206,8 @@ public class Club{
 	Add an assistant coach to the team <br>
 	<b> pre: </b> <br>
 	<b> post: </b>Returns true if the player was added correctly, false if  it doesn't <br>
-	@param playerName String that indicates the name of the player	
+	@param teamName String that indicates the name of the team	
+	@param assistantCoachName String that indicates the name of the assistant coach
 	@return true or false
 	*/
 	public String addAnAssistantCoachToTheTeam(String teamName,String assistantCoachName){
@@ -216,7 +218,7 @@ public class Club{
 			if(teamIndex != -1){
 				if(employeeIndex!=-1){
 					employeeType= employeeInstanceOf(employeeIndex);
-					if(employeeType==1){
+					if(employeeType==3){
 						AssistantCoach teamAssistantCoach = giveAnAssistantCoachWithIndex(employeeIndex);
 						boolean aux=clubTeams[teamIndex].addAnAssistantCoach(teamAssistantCoach);
 						if(aux){
@@ -258,10 +260,69 @@ public class Club{
 		return index;
 	}
 	/**
+	Updates the name of an employee <br>
+	<b> pre: </b> <br>
+	<b> post: </b>The name of the player is updated <br>
+	@param employeeIndex int that indicates the employee
+	@param newName String that indicates the new name of the employee
+	@return info
+	*/
+	public String updateNameOfAnEmployee(int employeeIndex, String newName){
+		String info = "";
+		if(employeeIndex != -1){
+			clubEmployees.get(employeeIndex).setName(newName);
+			info += "Name changed succesfully "+"\n";
+		}
+		else {
+			info += "That employee doesn't exist "+"\n";
+		}
+		return info;
+	}
+	/**
+	Updates the ID of an employee <br>
+	<b> pre: </b> <br>
+	<b> post: </b>The ID of the player is updated <br>
+	@param employeeIndex int that indicates the employee
+	@param newID String that indicates the new ID of the employee
+	@return info
+	*/
+	public String updateIDOfAnEmployee(int employeeIndex, String newID){
+		String info = "";
+		if(employeeIndex != -1){
+			clubEmployees.get(employeeIndex).setIdentifier(newID);
+			info += "ID changed succesfully "+"\n";
+		}
+		else {
+			info += "That employee doesn't exist "+"\n";
+		}
+		return info;
+	}
+	/**
+	Updates the salary of an employee <br>
+	<b> pre: </b> <br>
+	<b> post: </b>The salary of the player is updated <br>
+	@param employeeIndex int that indicates the employee
+	@param newSalary int that indicates the new salary of the employee
+	@return info
+	*/
+	public String updateSalaryOfAnEmployee(int employeeIndex, int newSalary){
+		String info = "";
+		if(employeeIndex != -1){
+			clubEmployees.get(employeeIndex).setSalary(newSalary);
+			info += "Salary changed succesfully "+"\n";
+		}
+		else {
+			info += "That employee doesn't exist "+"\n";
+		}
+		return info;
+	}
+	
+	/**
 	Adds a lineup to the team <br>
 	<b> pre: </b> <br>
 	<b> post: </b>Returns true if the lineup was added correctly, false if  it doesn't <br>
-	@param playerName String that indicates the name of the player	
+	@param teamName String that indicates the name of the team	
+	@param lineup an object of type lineup
 	@return true or false
 	*/
 	public String addALineup(String teamName,Lineup lineup){
@@ -286,6 +347,7 @@ public class Club{
 	<b> pre: </b><br>
 	<b> post: </b> Displays the information of a team<br>
 	@param index int that indicates the team
+	@return info
 	*/
 	public String getInfoOfATeam(int index){
 		String info="";
@@ -302,6 +364,7 @@ public class Club{
 	<b> pre: </b><br>
 	<b> post: </b> Displays the players of a team<br>
 	@param index int that indicates the team
+	@return info
 	*/
 	public String getPlayersOfATeam(int index){
 		String info="";
@@ -318,6 +381,7 @@ public class Club{
 	<b> pre: </b><br>
 	<b> post: </b> Displays the players of a team<br>
 	@param index int that indicates the team
+	@return info
 	*/
 	public String getLineupsOfATeam(int index){
 		String info="";
@@ -380,6 +444,7 @@ public class Club{
 	<b> pre: </b><br>
 	<b> post: </b> Displays the information of an employee<br>
 	@param index int that indicates the employee
+	@return info
 	*/
 	public String getInfoOfAnEmployee(int index){
 		String info="";

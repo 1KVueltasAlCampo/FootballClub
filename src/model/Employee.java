@@ -33,7 +33,7 @@ public abstract class Employee {
 		return name;
 	}
 	/**
-	@param name String that indicates the identifier of the employee
+	@param identifier String that indicates the identifier of the employee
 	*/
 	public void setIdentifier(String identifier){
 		this.identifier=identifier;
@@ -45,7 +45,7 @@ public abstract class Employee {
 		return identifier;
 	}
 	/**
-	@param identifier String that indicates the salary of the employee
+	@param salary String that indicates the salary of the employee
 	*/
 	public void setSalary(int salary){
 		this.salary=salary;
@@ -79,7 +79,6 @@ public abstract class Employee {
 	Updates the employee status <br>
 	<b> pre: </b> <br>
 	<b> post: </b> The employee status is updated <br>
-	@return info
 	*/
 	public void updateStatus(){
 		employeeStatus = Status.values()[statusIndicator-1];

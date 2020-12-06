@@ -44,6 +44,7 @@ public class Menu{
 	Creates a club object to start the program <br>
 	<b> pre: </b><br>
 	<b> post: </b> A club object is created <br>
+	@return createClub
 	*/
 	public Club createTheClub(){
 		System.out.println("Welcome to the football club program ");
@@ -120,6 +121,7 @@ public class Menu{
 	Read an option <br>
 	<b> pre: </b><br>
 	<b> post: </b> The option has been read <br>
+	@return choice
 	*/
 	public int readOption(){
 		int choice = sc.nextInt();
@@ -184,7 +186,7 @@ public class Menu{
 				fireAnEmployee();
 				break;
 			case UPDATE_THE_INFORMATION_OF_AN_EMPLOYEE:
-			
+				updateTheInformationOfAnEmployee();
 				break;
 			case DISPLAY_EMPLOYEE_INFORMATION:
 				displayAnEmployeeInformation();
@@ -233,6 +235,9 @@ public class Menu{
 	Hires a player for the club <br>
 	<b> pre: </b>Don't add a player that is already in the club<br>
 	<b> post: </b> Given the data a player is hired<br>
+	@param employeeName String that indicates the name of the employee
+	@param employeeID String that indicates the identifier of the employee
+	@param employeeSalary int that indicates the salary of the employee
 	*/
 	public void hireAPlayer(String employeeName,String employeeID,int employeeSalary){
 		System.out.println("Enter the T-Shirt number of the player ");
@@ -243,7 +248,6 @@ public class Menu{
 		sc.nextLine();
 		System.out.println("Enter the average rating of the player. Must be a number from 1 to 5. ");
 		double playerAverageRating = sc.nextDouble();
-		sc.nextLine();
 		System.out.println("Enter the position of the player. Use 1 for goalkeeper, 2 for defender, 3 for midfielder and 4 for striker ");
 		int playerPositionIndicator=sc.nextInt();
 		sc.nextLine();
@@ -253,6 +257,9 @@ public class Menu{
 	Hires a head coach for the club <br>
 	<b> pre: </b>Don't add a head coach that is already in the club<br>
 	<b> post: </b> Given the data a head coach is hired<br>
+	@param employeeName String that indicates the name of the employee
+	@param employeeID String that indicates the identifier of the employee
+	@param employeeSalary int that indicates the salary of the employee
 	*/
 	public void hireAHeadCoach(String employeeName,String employeeID,int employeeSalary){
 		System.out.println("Enter the years of experience of the coach");
@@ -270,6 +277,9 @@ public class Menu{
 	Hires an assistant coach for the club <br>
 	<b> pre: </b>Don't add an assistant coach that is already in the club<br>
 	<b> post: </b> Given the data an assistant coach is hired<br>
+	@param employeeName String that indicates the name of the employee
+	@param employeeID String that indicates the identifier of the employee
+	@param employeeSalary int that indicates the salary of the employee
 	*/
 	public void hireAnAssistantCoach(String employeeName,String employeeID,int employeeSalary){
 		System.out.println("Enter the years of experience of the coach");
@@ -298,6 +308,39 @@ public class Menu{
 		}
 		else{
 			System.out.println("The employee "+employeeName+" could not be fired because he doesn't exist ");
+		}
+	}
+	/**
+	Updates the information of an employee <br>
+	<b> pre: </b><br>
+	<b> post: </b> Given the name, updates the information of that employee <br>
+	*/
+	public void updateTheInformationOfAnEmployee(){
+		System.out.println("Enter the name of the employee you want to update: ");
+		String employeeName = sc.nextLine();
+		int employeeIndex = footballClub.findEmployee(employeeName);
+		System.out.println("What do you want to update? 1 for name, 2 for id, 3 for salary: ");
+		int decision = sc.nextInt();
+		sc.nextLine();
+		switch(decision){
+			case 1:
+				System.out.println("Enter the new name ");
+				String newName = sc.nextLine();
+				System.out.println(footballClub.updateNameOfAnEmployee(employeeIndex,newName));
+				break;
+			case 2:
+				System.out.println("Enter the new ID ");
+				String newID = sc.nextLine();
+				System.out.println(footballClub.updateIDOfAnEmployee(employeeIndex,newID));
+				break;
+			case 3:
+				System.out.println("Enter the new salary ");
+				int newSalary = sc.nextInt();
+				sc.nextLine();
+				System.out.println(footballClub.updateSalaryOfAnEmployee(employeeIndex,newSalary));
+				break;
+			default:
+				System.out.println("Enter a valid option");
 		}
 	}
 	/**
@@ -349,7 +392,7 @@ public class Menu{
 	<b> post: </b> Given the data a team is initialized <br>
 	*/
 	public void initializeATeam(){
-		System.out.println("Enter the team name: ");
+		System.out.println("Enter the name you want to give to the team: ");
 		String teamName=sc.nextLine();
 		System.out.println("Enter the name of the head coach ");
 		String headCoachName = sc.nextLine();
@@ -412,12 +455,12 @@ public class Menu{
 		String info = "";
 		System.out.println("Enter the name of the team to which you want to add a lineup");
 		String teamName = sc.nextLine();
-		System.out.println("Enter the creation date of the lineup ");
+		System.out.println("Enter the creation date of the lineup. Use a format DD/MM/YYYY ");
 		String lineupDate = sc.nextLine();
 		System.out.println("Enter the tactic of the lineup. Use 1 for possesion, 2 for counterattack, 3 for high pressure.");
 		int lineupTacticIndicator = sc.nextInt();
 		sc.nextLine();
-		System.out.println("Enter the formation of the lineup. Use a format like 4-4-2");
+		System.out.println("Enter the formation of the lineup. Use minimum 3 digits (like 4-4-2) and maximum 6 (like 2-2-2-1-2-1");
 		String lineupFormationString = sc.nextLine();
 		Lineup teamLineup = new Lineup(lineupDate,lineupTacticIndicator,lineupFormationString);
 		info = footballClub.addALineup(teamName,teamLineup);
