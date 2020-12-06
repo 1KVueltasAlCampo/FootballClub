@@ -12,13 +12,12 @@ public abstract class Employee {
 	@param name String that indicates the name of the employee
 	@param identifier String that indicates the identifier of the employee
 	@param salary int that indicates the salary of the employee
-	@param statusIndicator int that indicates the status of the employee. Must be 1 if the employee is active, 0 if not
 	*/
-	public Employee(String name,String identifier,int salary,int statusIndicator){
+	public Employee(String name,String identifier,int salary){
 		this.name=name;
 		this.identifier=identifier;
 		this.salary=salary;
-		this.statusIndicator=statusIndicator;
+		statusIndicator=1;
 		employeeStatus = Status.values()[statusIndicator-1];
 	}
 	/**
@@ -73,8 +72,17 @@ public abstract class Employee {
 	@return The status of the user (active or inactive)
 	*/
 	public String getStatus(){
-		String info = employeeStatus;
+		String info = employeeStatus.toString();
 		return info;
+	}
+	/**
+	Updates the employee status <br>
+	<b> pre: </b> <br>
+	<b> post: </b> The employee status is updated <br>
+	@return info
+	*/
+	public void updateStatus(){
+		employeeStatus = Status.values()[statusIndicator-1];
 	}
 	/**
 	Returns the basic information of the employee <br>
@@ -82,7 +90,8 @@ public abstract class Employee {
 	<b> post: </b> Based on the information that all employees must have, a String with all the basic information is obtained <br>
 	@return info
 	*/
-	private String getBasicInformation(){
+	public String getBasicInformation(){
+		updateStatus();
 		String info = "";
 		info += "**************  Employee **************"+"\n";
 		info += "Name: "+getName()+"\n";

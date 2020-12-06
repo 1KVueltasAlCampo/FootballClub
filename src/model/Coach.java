@@ -8,11 +8,10 @@ public abstract class Coach extends Employee{
 	@param name String that indicates the name of the coach
 	@param identifier String that indicates the identifier of the coach
 	@param salary int that indicates the salary of the coach
-	@param statusIndicator int that indicates the status of the coach. Must be 1 if the coach is active, 0 if not
 	@param experienceYears int that indicates the years of experience of the coach
 	*/
-	public Coach(String name,String identifier,int salary,int statusIndicator, int experienceYears){
-		super(name,identifier,salary,statusIndicator);
+	public Coach(String name,String identifier,int salary,int experienceYears){
+		super(name,identifier,salary);
 		this.experienceYears=experienceYears;
 	}
 	/**

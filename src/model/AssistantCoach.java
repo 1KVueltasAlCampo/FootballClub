@@ -10,13 +10,12 @@ public class AssistantCoach extends Coach{
 	@param name String that indicates the name of the assistant coach
 	@param identifier String that indicates the identifier of the assistant coach
 	@param salary int that indicates the salary of the assistant coach
-	@param statusIndicator int that indicates the status of the assistant coach. Must be 1 if the assistant coach is active, 0 if not
 	@param experienceYears int that indicates the years of experience of the assistant coach
 	@param wasAPlayer boolean that indicates if the coach was a proffesional player or not
 	@param expertiseIndicator int that indicates the expertise of the coach. 1 for offensive, 2 for deffensive, 3 for possesion, 4 for lab plays
 	*/
-	public AssistantCoach(String name,String identifier,int salary,int statusIndicator, int experienceYears, boolean wasAPlayer, int expertiseIndicator){
-		super(name,identifier,salary,statusIndicator,experienceYears);
+	public AssistantCoach(String name,String identifier,int salary,int experienceYears,boolean wasAPlayer, int expertiseIndicator){
+		super(name,identifier,salary,experienceYears);
 		this.wasAPlayer=wasAPlayer;
 		this.expertiseIndicator=expertiseIndicator;
 		coachExpertise = Expertise.values()[expertiseIndicator-1];
@@ -50,7 +49,7 @@ public class AssistantCoach extends Coach{
 	@return the expertise indicator of the coach
 	*/
 	public String getCoachExpertise(){
-		String info = coachExpertise;
+		String info = coachExpertise.toString();
 		return info;
 	}
 	/**

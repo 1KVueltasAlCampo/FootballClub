@@ -13,15 +13,17 @@ public class Lineup {
 	<b> pre: </b><br>
 	<b> post: </b> Create an object of type Lineup <br>
 	@param lineupDate String that indicates the date of the lineup
-	@param lineupTacticIndicator int that indicates the tactic of the lineup
+	@param lineupTacticIndicator int that indicates the tactic of the lineup. 1 for possesion, 2 for counterattack, 3 for high pressure.
 	@param formationString String that indicates the formation of the lineup
 	*/
 	public Lineup(String lineupDate, int lineupTacticIndicator, String formationString){
 		this.lineupDate=lineupDate;
 		this.lineupTacticIndicator=lineupTacticIndicator;
+		this.formationString = formationString;
 		lineupTactic = Tactic.values()[lineupTacticIndicator-1];
 		formationMatrix = new int [ROWS] [COLUMNS];
-		this.formationString = formationString;
+		createFormationMatrix();
+		
 	}
 	/**
 	@param lineupDate String that indicates the date of the lineup
@@ -51,7 +53,7 @@ public class Lineup {
 	@return The tactic of the lineup
 	*/
 	public String getLineupTactic(){
-		String info = lineupTactic;
+		String info = lineupTactic.toString();
 		return info;
 	}
 	/**
@@ -73,11 +75,12 @@ public class Lineup {
 	@param formation String that indicates the formation. Must be an String with numbers separated by "-". The minimum is 3, the maximum is 6
 	@return playersPerRow
 	*/
-	public int[] getPlayersPerRow(String formation){
-		String aux = formation.split("-");
+	public int[] getPlayersPerRow(){
+		String auxA= getFormationString();
+		String[] aux = auxA.split("-");
 		int[] playersPerRow = new int[aux.length];
 		for(int i=0;i<aux.length;i++){
-			playersPerRow[i]=(int) aux[i];
+			playersPerRow[i]=Integer.parseInt(aux[i]);
 		}
 		return playersPerRow;
 	}
@@ -87,8 +90,8 @@ public class Lineup {
 	<b> post: </b> The class now has a formation matrix based on the information the user gave <br>
 	@param formation String that indicates the formation. Must be an String with numbers separated by "-". The minimum is 3, the maximum is 6
 	*/
-	public void createFormationMatrix(String formation){
-		int[] formationIndicator = getPlayersPerRow(formation);
+	public void createFormationMatrix(){
+		int[] formationIndicator = getPlayersPerRow();
 		switch(formationIndicator.length){
 			case 3:
 				organizeRows(2,formationIndicator[2]);
@@ -138,11 +141,12 @@ public class Lineup {
 				formationMatrix[rowIndicator][2]=1;
 				formationMatrix[rowIndicator][3]=1;
 				formationMatrix[rowIndicator][4]=1;
+				break;
 			case 4:
 				formationMatrix[rowIndicator][1]=1;
 				formationMatrix[rowIndicator][2]=1;
-				formationMatrix[rowIndicator][3]=1;
 				formationMatrix[rowIndicator][4]=1;
+				formationMatrix[rowIndicator][5]=1;
 				break;
 			case 5:
 				formationMatrix[rowIndicator][1]=1;
@@ -231,6 +235,7 @@ public class Lineup {
 			}
 			info+= "\n";
 		}
+		return info;
 	}
 	/**
 	Returns all the information of the player <br>
@@ -243,9 +248,9 @@ public class Lineup {
 		info += "**************  Lineup **************"+"\n";
 		info += "Date: "+getLineupDate()+"\n";
 		info += "Tactic: "+getLineupTactic()+"\n";
-		info += "Formation ":+getFormationString()+"\n";
+		info += "Formation: "+getFormationString()+"\n";
 		info += getFormationMatrix();
-		info += "Strikers: "+getStrikers()+" Midfielders: "+getMidfielders()+" Defenders "+getDefenders();
+		info += "Strikers: "+getStrikers()+" Midfielders: "+getMidfielders()+" Defenders "+getDefenders()+"\n";
 		info += "*************************************"+"\n";
 		return info;
 	}

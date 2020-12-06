@@ -14,14 +14,13 @@ public class Player extends Employee implements PriceAndLevel{
 	@param name String that indicates the name of the player
 	@param identifier String that indicates the identifier of the player
 	@param salary int that indicates the salary of the player
-	@param statusIndicator int that indicates the status of the player. Must be 1 if the player is active, 0 if not
 	@param tShirtNumber int that indicates the t-shirt number of the player
 	@param goalsScored int that indicates the goals scored by the player
 	@param averageRating double that indicates the average rating of the player. Must be a number from 1 to 5.
 	@param positionIndicator int that indicates the position of the player. 1 for GoalKeeper, 2 for Defender,3 for midfielder, 4 for striker.
 	*/
-	public Player(String name,String identifier,int salary,int statusIndicator,int tShirtNumber,int goalsScored,double averageRating, int positionIndicator){
-		super(name,identifier,salary,statusIndicator);
+	public Player(String name,String identifier,int salary,int tShirtNumber,int goalsScored,double averageRating, int positionIndicator){
+		super(name,identifier,salary);
 		this.tShirtNumber=tShirtNumber;
 		this.goalsScored=goalsScored;
 		this.averageRating=averageRating;
@@ -81,7 +80,7 @@ public class Player extends Employee implements PriceAndLevel{
 	@return The position of the player
 	*/
 	public String getPosition(){
-		String info = playerPosition;
+		String info = playerPosition.toString();
 		return info;
 	}
 	/**
@@ -91,20 +90,20 @@ public class Player extends Employee implements PriceAndLevel{
 	@return price
 	*/
 	@Override
-	private double calculatePrice(){
+	public double calculatePrice(){
 		double price;
 		switch(positionIndicator){
 			case 1:
-				price = (salary*12)+(averageRating*150);
+				price = (getSalary()*12)+(getAverageRating()*150);
 				break;
 			case 2:
-				price = (salary*13)+(averageRating*125)+(goalsScored*100);
+				price = (getSalary()*13)+(getAverageRating()*125)+(getGoalsScored()*100);
 				break;
 			case 3:
-				price = (salary*14)+(averageRating*135)+(goalsScored*125);
+				price = (getSalary()*14)+(getAverageRating()*135)+(getGoalsScored()*125);
 				break;
 			case 4:
-				price = (salary*15)+(averageRating*145)+(goalsScored*150);
+				price = (getSalary()*15)+(getAverageRating()*145)+(getGoalsScored()*150);
 				break;
 			default:
 				price=0;
@@ -118,14 +117,14 @@ public class Player extends Employee implements PriceAndLevel{
 	<b> post: </b> Based on the salary, the average rating and the number of goals scored by the player, updates the price of the player <br>
 	*/
 	@Override
-	private void updatePrice(){
+	public void updatePrice(){
 		playerPrice=calculatePrice();
 	}
 	/**
 	@return The price of the player
 	*/
 	@Override
-	public String getPrice(){
+	public double getPrice(){
 		return playerPrice;
 	}
 	/**
@@ -135,7 +134,7 @@ public class Player extends Employee implements PriceAndLevel{
 	@return level
 	*/
 	@Override
-	private double calculateLevel(){
+	public double calculateLevel(){
 		double level;
 		switch(positionIndicator){
 			case 1:
@@ -162,14 +161,14 @@ public class Player extends Employee implements PriceAndLevel{
 	<b> post: </b> Based on the average rating and the number of goals scored by the player, updates the level of the player <br>
 	*/
 	@Override
-	private void updateLevel(){
+	public void updateLevel(){
 		playerLevel=calculateLevel();
 	}
 	/**
 	@return The level of the player
 	*/
 	@Override
-	public String getLevel(){
+	public double getLevel(){
 		return playerLevel;
 	}
 	/**
@@ -180,15 +179,15 @@ public class Player extends Employee implements PriceAndLevel{
 	*/
 	@Override
 	public String getAllInformation(){
-		String info= getBasicInformation();
+		String info = getBasicInformation();
 		updatePrice();
 		updateLevel();
 		info += "T-Shirt Number: "+getTShirtNumber()+"\n";
 		info += "Goals scored: "+getGoalsScored()+"\n";
 		info += "Average rating: "+getAverageRating()+"\n";
 		info += "Position: "+getPosition()+"\n";
-		info += "Player price: "+getPlayerPrice()+"\n";
-		info += "Player level: "+getPlayerLevel()+"\n";
+		info += "Player price: "+getPrice()+"\n";
+		info += "Player level: "+getLevel()+"\n";
 		info += "***************************************"+"\n";
 		return info;
 	}

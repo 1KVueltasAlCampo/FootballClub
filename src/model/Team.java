@@ -5,7 +5,7 @@ public class Team {
 	private HeadCoach teamHeadCoach;
 	private AssistantCoach[] teamAssistantCoachs;
 	private Player[] teamPlayers;
-	private arrayList<Lineup> teamLineups;
+	private ArrayList<Lineup> teamLineups;
 	private int teamLineupsAmount;
 	/**
 	Constructor method of the class "Team" <br>
@@ -17,10 +17,10 @@ public class Team {
 	public Team(String teamName, HeadCoach teamHeadCoach){
 		this.teamName=teamName;
 		this.teamHeadCoach=teamHeadCoach;
-		teamAssistantCoach=new AssistantCoach[3];
+		teamAssistantCoachs=new AssistantCoach[3];
 		teamPlayers = new Player[25];
 		teamLineupsAmount=0;
-		teamLineups=new arrayList<Lineup>();
+		teamLineups=new ArrayList<Lineup>();
 	}
 	/**
 	@param teamName String that indicates the name of the team
@@ -124,13 +124,13 @@ public class Team {
 	@return true or false
 	*/
 	public boolean lineupExists(Lineup lineup){
-		for(int i=0;i<teamLineupsAmount;i++){
-			if(teamLineups.get(i)!=null){
-				if(lineup.getName().equalsIgnoreCase(teamLineups.get(i).getName())){
-					return true;
-				}
+		if(!teamLineups.isEmpty()){
+			for(int i=0;i<teamLineupsAmount;i++){
+					if(lineup.getLineupDate().equalsIgnoreCase(teamLineups.get(i).getLineupDate())){
+						return true;
+					}
 			}
-		}
+		}	
 		return false;
 	}
 	/**
@@ -140,10 +140,11 @@ public class Team {
 	@param lineup An object of type lineup
 	@return true or false
 	*/
-	public boolean addAnAssistantCoach(AssistantCoach assistantCoach){
-		if(!(assistantCoachExists(assistantCoach))){
-			teamLineups.add(assistantCoach);
+	public boolean addALineup(Lineup lineup){
+		if(!(lineupExists(lineup))){
+			teamLineups.add(lineup);
 			teamLineupsAmount++;
+			return true;
 		}	
 		return false;
 	}
@@ -155,8 +156,38 @@ public class Team {
 	*/
 	public String getAssistantCoachs(){
 		String info="";
-		for(int i=0;i<teamAssistantCoachs;i++){
+		for(int i=0;i<teamAssistantCoachs.length;i++){
 			info+=teamAssistantCoachs[i].getName()+", ";
+		}
+		return info;
+	}
+	/**
+	Returns the players of the Team <br>
+	<b> pre: </b> <br>
+	<b> post: </b> Based on the information of the team, a String with all the players is obtained <br>
+	@return info
+	*/
+	public String getPlayersOfTheTeam(){
+		String info = "";
+		for(int i=0;i<teamPlayers.length;i++){
+			info+=teamPlayers[i].getName()+" ";
+			if(i%5==0){
+				info += "\n";
+			}
+		}
+		info += "\n";
+		return info;
+	}
+	/**
+	Returns the lineups of the Team <br>
+	<b> pre: </b> <br>
+	<b> post: </b> Based on the information of the team, a String with all the lineups is obtained <br>
+	@return info
+	*/
+	public String getLineupsOfTheTeam(){
+		String info = "";
+		for(int i=0;i<teamLineupsAmount;i++){
+			info+=teamLineups.get(i).getInfo();
 		}
 		return info;
 	}
@@ -171,7 +202,7 @@ public class Team {
 		info += "**************  Team **************"+"\n";
 		info += "Name: "+getTeamName()+"\n";
 		info += "Head Coach: "+teamHeadCoach.getName()+"\n";
-		info += "Assistant coachs: "+getSalary()+"\n";
+		info += "Assistant coachs: "+getAssistantCoachs()+"\n";
 		info += "***********************************"+"\n";
 		return info;
 	}

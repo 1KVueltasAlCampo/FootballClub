@@ -11,13 +11,12 @@ public class HeadCoach extends Coach implements PriceAndLevel{
 	@param name String that indicates the name of the head coach
 	@param identifier String that indicates the identifier of the head coach
 	@param salary int that indicates the salary of the head coach
-	@param statusIndicator int that indicates the status of the head coach. Must be 1 if the head coach is active, 0 if not
 	@param experienceYears int that indicates the years of experience of the head coach
 	@param teamsInCharge int that indicates the number of teams the head coach has in charge
 	@param championshipsAchieved int that indicates the number of championships achieved by the head coach
 	*/
-	public HeadCoach(String name,String identifier,int salary,int statusIndicator, int experienceYears,int teamsInCharge,int championshipsAchieved){
-		super(name,identifier,salary,statusIndicator,experienceYears);
+	public HeadCoach(String name,String identifier,int salary,int experienceYears,int teamsInCharge,int championshipsAchieved){
+		super(name,identifier,salary,experienceYears);
 		this.teamsInCharge=teamsInCharge;
 		this.championshipsAchieved=championshipsAchieved;
 	}
@@ -52,8 +51,8 @@ public class HeadCoach extends Coach implements PriceAndLevel{
 	@return price
 	*/
 	@Override
-	private double calculatePrice(){
-		double price = (salary*10)+(experienceYears*100)+(championshipsAchieved*50);
+	public double calculatePrice(){
+		double price = (getSalary()*10)+(getExperienceYears()*100)+(getChampionshipsAchieved()*50);
 		return price;
 	}
 	/**
@@ -62,14 +61,14 @@ public class HeadCoach extends Coach implements PriceAndLevel{
 	<b> post: </b> Based on the salary, the years of experience and the number of championships achieved, updates the price of the coach <br>
 	*/
 	@Override
-	private void updatePrice(){
+	public void updatePrice(){
 		coachPrice=calculatePrice();
 	}
 	/**
 	@return The price of the coach
 	*/
 	@Override
-	public String getPrice(){
+	public double getPrice(){
 		return coachPrice;
 	}
 	/**
@@ -79,7 +78,7 @@ public class HeadCoach extends Coach implements PriceAndLevel{
 	@return level
 	*/
 	@Override
-	private double calculateLevel(){
+	public double calculateLevel(){
 		double level = 5+(championshipsAchieved/10);
 		return level;
 	}
@@ -89,14 +88,14 @@ public class HeadCoach extends Coach implements PriceAndLevel{
 	<b> post: </b> Based on the average rating and the number of goals scored by the coach, updates the level of the coach <br>
 	*/
 	@Override
-	private void updateLevel(){
+	public void updateLevel(){
 		coachLevel=calculateLevel();
 	}
 	/**
 	@return The level of the coach
 	*/
 	@Override
-	public String getLevel(){
+	public double getLevel(){
 		return coachLevel;
 	}
 	/**
